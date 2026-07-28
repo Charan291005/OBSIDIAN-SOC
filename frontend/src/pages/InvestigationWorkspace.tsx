@@ -22,7 +22,7 @@ export default function InvestigationWorkspace() {
   useEffect(() => {
     const fetchIncident = async () => {
       try {
-        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+        const API_URL = import.meta.env.VITE_API_URL || "https://obsidian-soc-backend.onrender.com";
         const response = await axios.get(`${API_URL}/api/v1/incidents/${id}`);
         setIncident(response.data);
       } catch (error) {
