@@ -17,7 +17,7 @@ export default function AIWorkspace() {
     setShowResult(false);
     
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "https://obsidian-soc-backend.onrender.com";
+      const API_URL = import.meta.env.VITE_API_URL || "https://obsidian-soc-backend-15k7.onrender.com";
       const response = await axios.post(`${API_URL}/api/v1/ai/generate`, { query });
       setReportText(response.data.report);
       setShowResult(true);

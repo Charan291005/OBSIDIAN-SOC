@@ -58,7 +58,7 @@ def seed_incidents(db: Session = Depends(get_db)):
             severity="Medium",
             risk_score=65,
             status="Investigating",
-            assigned_to=uuid.uuid4() # Mock analyst ID
+            assigned_to=None
         ),
         IncidentModel(
             title="Volumetric DDoS Attack",
@@ -66,7 +66,7 @@ def seed_incidents(db: Session = Depends(get_db)):
             severity="Critical",
             risk_score=98,
             status="Resolved",
-            assigned_to=uuid.uuid4()
+            assigned_to=None
         )
     ]
     
