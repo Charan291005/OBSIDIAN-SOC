@@ -12,6 +12,9 @@ Obsidian SOC is an enterprise-grade AI-powered Security Operations Workspace des
 
 ## 🚀 Overview
 
+**Live Application:** [https://obsidian-soc-frontend-15k7.onrender.com](https://obsidian-soc-frontend-15k7.onrender.com)
+**Live API Endpoint:** [https://obsidian-soc-backend-15k7.onrender.com](https://obsidian-soc-backend-15k7.onrender.com)
+
 Modern SOC analysts are drowning in unstructured log data. Obsidian SOC solves this by providing a unified workspace where analysts can upload logs, investigate auto-generated incidents, collaborate with AI, visualize threats, and generate executive reports. 
 
 Featuring both **Analyst Mode** (for deep-dive investigations) and **CEO Mode** (for high-level executive risk assessment), the platform adapts to the needs of the entire organization.
