@@ -1,9 +1,9 @@
-services:
+databases:
   # Managed PostgreSQL Database
-  - type: pgo
-    name: obsidian-soc-db
+  - name: obsidian-soc-db
     plan: free
 
+services:
   # FastAPI Backend Service
   - type: web
     name: obsidian-soc-backend
