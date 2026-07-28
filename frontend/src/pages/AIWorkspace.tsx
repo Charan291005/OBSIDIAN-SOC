@@ -17,7 +17,8 @@ export default function AIWorkspace() {
     setShowResult(false);
     
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/ai/generate", { query });
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+      const response = await axios.post(`${API_URL}/api/v1/ai/generate`, { query });
       setReportText(response.data.report);
       setShowResult(true);
     } catch (error) {

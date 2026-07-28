@@ -22,7 +22,8 @@ export default function InvestigationWorkspace() {
   useEffect(() => {
     const fetchIncident = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/v1/incidents/${id}`);
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+        const response = await axios.get(`${API_URL}/api/v1/incidents/${id}`);
         setIncident(response.data);
       } catch (error) {
         console.error("Error fetching incident:", error);

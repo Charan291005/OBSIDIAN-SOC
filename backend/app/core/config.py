@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./obsidian_soc.db"
     
     # CORS
-    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"]
+    BACKEND_CORS_ORIGINS: List[str] = ["*"]
     
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

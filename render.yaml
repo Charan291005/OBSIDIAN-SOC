@@ -1,0 +1,36 @@
+services:
+  # Managed PostgreSQL Database
+  - type: pgo
+    name: obsidian-soc-db
+    plan: free
+
+  # FastAPI Backend Service
+  - type: web
+    name: obsidian-soc-backend
+    env: python
+    region: ohio
+    plan: free
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: obsidian-soc-db
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # React Frontend Static Site
+  - type: web
+    name: obsidian-soc-frontend
+    env: static
+    region: ohio
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "./frontend/dist"
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: obsidian-soc-backend
+          envVarKey: RENDER_EXTERNAL_URL
