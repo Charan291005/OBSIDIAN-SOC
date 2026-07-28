@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0B0F14;
+  --color-surface: #12171F;
+  --color-card: #171D26;
+  --color-primary: #C9A86A;
+  --color-secondary: #7B61FF;
+  --color-success: #4CAF50;
+  --color-warning: #F6B93B;
+  --color-critical: #FF5C5C;
+  --color-info: #50A7FF;
+  --color-text: #F7F8FA;
+  --color-muted: #9CA3AF;
+  --color-border: #2A313C;
+
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  
+  --radius-xl: 16px;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text font-body antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+
+  code {
+    @apply font-mono;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-card border border-border rounded-xl p-6 shadow-soft;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-[#0B0F14] font-medium px-4 py-2 rounded-lg hover:opacity-90 transition-opacity;
+  }
+}
