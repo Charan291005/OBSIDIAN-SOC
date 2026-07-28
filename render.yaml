@@ -2,6 +2,7 @@ databases:
   # Managed PostgreSQL Database
   - name: obsidian-soc-db
     plan: free
+    region: ohio
 
 services:
   # FastAPI Backend Service
