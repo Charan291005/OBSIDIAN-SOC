@@ -33,3 +33,7 @@ services:
           type: web
           name: obsidian-soc-backend
           envVarKey: RENDER_EXTERNAL_URL
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
