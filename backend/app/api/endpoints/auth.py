@@ -4,6 +4,7 @@ from app.database.session import get_db
 from app.schemas.user import UserCreate, User, Token
 from app.models.user import User as UserModel
 from app.auth.security import get_password_hash, verify_password, create_access_token
+from fastapi.security import OAuth2PasswordRequestForm
 
 router = APIRouter()
 
@@ -28,7 +29,6 @@ def register(user_in: UserCreate, db: Session = Depends(get_db)):
     db.refresh(user)
     return user
 
-from fastapi.security import OAuth2PasswordRequestForm
 
 @router.post("/login", response_model=Token)
 def login(db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()):
