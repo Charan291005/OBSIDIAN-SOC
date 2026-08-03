@@ -3,6 +3,7 @@ from typing import Any, Union
 from jose import jwt
 from passlib.context import CryptContext
 from app.core.config import settings
+import os
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -21,7 +22,6 @@ def create_access_token(subject: Union[str, Any], expires_delta: timedelta = Non
     to_encode = {"exp": expire, "sub": str(subject)}
     
     # We load secret from environment
-    import os
     secret = os.environ.get("JWT_SECRET", "dev_secret_key")
     algorithm = os.environ.get("JWT_ALGORITHM", "HS256")
     
