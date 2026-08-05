@@ -17,13 +17,13 @@ def create_access_token(subject: Union[str, Any], expires_delta: timedelta = Non
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=int(os.environ.get("ACCESS_TOKEN_EXPIRE", 1440)))
+        expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     
     to_encode = {"exp": expire, "sub": str(subject)}
     
-    # We load secret from environment
-    secret = os.environ.get("JWT_SECRET", "dev_secret_key")
-    algorithm = os.environ.get("JWT_ALGORITHM", "HS256")
+    # We load secret from config settings
+    secret = settings.JWT_SECRET
+    algorithm = settings.JWT_ALGORITHM
     
     encoded_jwt = jwt.encode(to_encode, secret, algorithm=algorithm)
     return encoded_jwt
