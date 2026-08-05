@@ -1,9 +1,11 @@
 import { Activity, Copy, Bookmark, Share, Sparkles } from "lucide-react";
 import { Card } from "../components/ui/Card";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+
+const API_URL = import.meta.env.VITE_API_URL || "https://obsidian-soc-backend-15k7.onrender.com";
 
 export default function AIWorkspace() {
   const [query, setQuery] = useState("");
@@ -11,13 +13,12 @@ export default function AIWorkspace() {
   const [showResult, setShowResult] = useState(false);
   const [reportText, setReportText] = useState("");
 
-  const handleGenerate = async () => {
+  const handleGenerate = useCallback(async () => {
     if (!query) return;
     setIsGenerating(true);
     setShowResult(false);
     
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "https://obsidian-soc-backend-15k7.onrender.com";
       const response = await axios.post(`${API_URL}/api/v1/ai/generate`, { query });
       setReportText(response.data.report);
       setShowResult(true);
@@ -28,7 +29,7 @@ export default function AIWorkspace() {
     } finally {
       setIsGenerating(false);
     }
-  };
+  }, [query]);
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
