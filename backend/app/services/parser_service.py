@@ -52,17 +52,21 @@ def parse_log_file(content: str, filename: str) -> list[dict]:
     elif filename.endswith('.log') or filename.endswith('.txt'):
         # Fallback to a generic regex pattern or simple line parsing
         # Real-world implementations would use grok or strict regex patterns per log type
+        
+        # Pre-compile regex and compute fallback timestamp once for efficiency
+        ip_pattern = re.compile(r'\b(?:\d{1,3}\.){3}\d{1,3}\b')
+        fallback_timestamp = datetime.utcnow().isoformat()
+        
         for line in content.splitlines():
             if not line.strip():
                 continue
             
             # Very basic unstructured parsing (assumes syslogs loosely)
             # Timestamp usually at the beginning, IPs might be present
-            ip_pattern = r'\b(?:\d{1,3}\.){3}\d{1,3}\b'
-            ips = re.findall(ip_pattern, line)
+            ips = ip_pattern.findall(line)
             
             normalized_logs.append({
-                "timestamp": datetime.utcnow().isoformat(), # Difficult to extract reliably without grok
+                "timestamp": fallback_timestamp, # Difficult to extract reliably without grok
                 "source_ip": ips[0] if len(ips) > 0 else None,
                 "destination_ip": ips[1] if len(ips) > 1 else None,
                 "username": None,
