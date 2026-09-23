@@ -96,7 +96,7 @@ Detailed documentation is available in the `/docs` directory:
 - [Engineering Standards](docs/PRD_Part4.md)
 
 ## 🤝 Contributing
-Please see `CONTRIBUTING.md` for details on our code of conduct and the process for submitting pull requests.
+Please see `CONTRIBUTING.md` for the process for submitting pull requests.
 
 ## 🛡️ Security
 If you discover a security vulnerability within Obsidian SOC, please review our `SECURITY.md` file.
