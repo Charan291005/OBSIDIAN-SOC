@@ -8,10 +8,14 @@ import sys
 import time
 
 def setup_environment():
-    # Ensure current directory is in sys.path
+    # Ensure current directory is in sys.path and set working directory
     backend_dir = os.path.dirname(os.path.abspath(__file__))
     if backend_dir not in sys.path:
         sys.path.insert(0, backend_dir)
+    try:
+        os.chdir(backend_dir)
+    except Exception:
+        pass
 
 def initialize_database():
     print("=" * 60)
