@@ -30,6 +30,15 @@ class Incident(Base):
     
     assigned_to = Column(UUID(as_uuid=True), ForeignKey('users.id'), nullable=True)
     
+    # Extended SOC Attributes
+    host = Column(String(255), nullable=True, default="DESKTOP-492X")
+    affected_user = Column(String(255), nullable=True, default="j.doe")
+    source_ip = Column(String(50), nullable=True, default="192.168.1.105")
+    mitre_techniques = Column(JSON, nullable=True)
+    recommended_actions = Column(JSON, nullable=True)
+    analyst_notes = Column(Text, nullable=True)
+    timeline = Column(JSON, nullable=True)
+
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
 

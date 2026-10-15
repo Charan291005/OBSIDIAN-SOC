@@ -1,6 +1,24 @@
-import { Bell, Search, User } from "lucide-react";
+import { Bell, Search, User, RefreshCw } from "lucide-react";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 export default function TopNav() {
+  const [isLive, setIsLive] = useState<boolean | null>(null);
+  const [checking, setChecking] = useState(false);
+
+  const checkConnection = async () => {
+    setChecking(true);
+    const health = await api.checkHealth();
+    setIsLive(health.isLive);
+    setChecking(false);
+  };
+
+  useEffect(() => {
+    checkConnection();
+    const interval = setInterval(checkConnection, 30000); // Check every 30s
+    return () => clearInterval(interval);
+  }, []);
+
   const triggerCommandPalette = () => {
     document.dispatchEvent(
       new KeyboardEvent("keydown", { key: "k", metaKey: true })
@@ -26,6 +44,19 @@ export default function TopNav() {
 
       {/* Right Actions */}
       <div className="flex items-center gap-4">
+        {/* Backend Connection Status Badge */}
+        <button
+          onClick={checkConnection}
+          title="Click to re-check backend connection status"
+          className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border border-border bg-surface hover:bg-card transition-colors cursor-pointer"
+        >
+          <span className={`w-2 h-2 rounded-full ${isLive ? 'bg-success animate-pulse' : 'bg-warning'}`} />
+          <span className="text-muted">
+            {checking ? "Checking..." : isLive ? "API Online" : "Demo Mode (Warming Up)"}
+          </span>
+          <RefreshCw className={`w-3 h-3 text-muted ${checking ? 'animate-spin' : ''}`} />
+        </button>
+
         <button className="relative p-2 text-muted hover:text-text transition-colors rounded-full hover:bg-surface">
           <Bell className="w-5 h-5" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-critical rounded-full border border-background"></span>
@@ -39,3 +70,4 @@ export default function TopNav() {
     </header>
   );
 }
+

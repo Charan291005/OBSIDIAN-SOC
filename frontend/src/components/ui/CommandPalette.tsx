@@ -53,8 +53,8 @@ export function CommandPalette() {
             <Command.Item onSelect={() => runCommand(() => navigate("/upload"))} className="cmdk-item">
               <Upload className="w-4 h-4 mr-2" /> Upload Logs
             </Command.Item>
-            <Command.Item onSelect={() => runCommand(() => navigate("/investigations/new"))} className="cmdk-item">
-              <ShieldAlert className="w-4 h-4 mr-2" /> New Investigation
+            <Command.Item onSelect={() => runCommand(() => navigate("/investigations"))} className="cmdk-item">
+              <ShieldAlert className="w-4 h-4 mr-2" /> Browse & New Investigations
             </Command.Item>
           </Command.Group>
 

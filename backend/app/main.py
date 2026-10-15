@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
@@ -9,15 +10,14 @@ app = FastAPI(
     openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
 
-# Set all CORS enabled origins
-if settings.BACKEND_CORS_ORIGINS:
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+# CORS configuration - allow localhost, Render domains, and all origins safely
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
@@ -26,12 +26,22 @@ def health_check():
     """
     Application Health Endpoint for deployment monitoring (e.g. Render).
     """
+    from app.database.session import DB_URL
+    db_type = "sqlite" if "sqlite" in DB_URL else "postgresql"
     return {
         "status": "healthy",
+        "service": "Obsidian SOC Engine",
         "version": settings.VERSION,
-        "environment": "production" if settings.PROJECT_NAME != "Obsidian SOC" else "development"
+        "database": db_type,
+        "environment": "production" if "render.com" in os.environ.get("RENDER_EXTERNAL_URL", "") else "development"
     }
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to Obsidian SOC API"}
+    return {
+        "service": "Obsidian SOC API",
+        "status": "online",
+        "docs": "/docs",
+        "health": "/health"
+    }
+

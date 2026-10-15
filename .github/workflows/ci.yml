@@ -28,9 +28,9 @@ jobs:
       working-directory: ./backend
       run: echo "Linting passed."
         
-    - name: Run Pytest (Mock)
+    - name: Run Pytest
       working-directory: ./backend
-      run: echo "Tests passed."
+      run: python -m pytest tests/
 
   frontend-test:
     runs-on: ubuntu-latest
